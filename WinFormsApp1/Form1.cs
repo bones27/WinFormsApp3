@@ -3,11 +3,11 @@ using System.Text.RegularExpressions;
 
 namespace ReadForSpeed
 {
-  enum State { Run, Stop };
+    enum State { Run, Stop };
     public partial class Form1 : Form
     {
         private string fileName = @"C:\Users\temp_\source\repos\WinFormsApp1\WinFormsApp1\read.txt";
-        //string text = "Семь навыков, о которых рассказывается в книге, объединены в систему. Благодаря этому семь инструментов, чрезвычайно мощных даже по отдельности, приобретают дополнительную силу и становятся более удобными в использовании.\r\n";
+        //string text = "пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.\r\n";
         //int next = 50;
         int word = 0;
         string[] wordList;
@@ -86,7 +86,7 @@ namespace ReadForSpeed
             fileName = Properties.Settings.Default.fileName;
             Location = Properties.Settings.Default.formLocation; //form location
             Size = Properties.Settings.Default.formSize; //form location
-            System.Diagnostics.Debugger.Log(0,"info", Location.ToString());
+            System.Diagnostics.Debugger.Log(0, "info", Location.ToString());
             fontSizeCtrl.Value = fontSize;
             readSpeedCtrl.Value = readSpeed;
             data.Load("progress.json");
@@ -251,11 +251,21 @@ namespace ReadForSpeed
         private void loadFile(string fn)
         {
             fileName = fn.Replace("\"", "");
-            var text = File.ReadAllText(fileName);
-            var text1 = Regex.Replace(text, $"\n", " ");
-            wordList = Regex.Replace(text1, @"(\.)(\w)", "$1 $2").Split(' ').Where(x => x.Length > 0).ToArray();
-            progressBar1.Maximum = wordList.Length;
-            statusFileName.Text = fileName;
+
+            if (File.Exists(fn))
+            {
+                var text = File.ReadAllText(fileName);
+                var text1 = Regex.Replace(text, $"\n", " ");
+
+                wordList = Regex.Replace(text1, @"(\.)(\w)", "$1 $2").Split(' ').Where(x => x.Length > 0).ToArray();
+                progressBar1.Maximum = wordList.Length;
+                statusFileName.Text = fileName;
+            }
+            else
+            {
+                // wordList = null;
+                statusFileName.Text = "file not found";
+            }
             try
             {
                 word = data.Get(fn);

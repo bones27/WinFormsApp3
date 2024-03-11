@@ -12,7 +12,7 @@
       <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="fileName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\prog\WinFormsApp1\WinFormsApp1\read.txt</Value>
+      <Value Profile="(Default)">.\read.txt</Value>
     </Setting>
     <Setting Name="formLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">100, 100</Value>
