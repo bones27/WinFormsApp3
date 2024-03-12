@@ -7,18 +7,14 @@ namespace ReadForSpeed
     public partial class Form1 : Form
     {
         private string fileName = @"C:\Users\temp_\source\repos\WinFormsApp1\WinFormsApp1\read.txt";
-        //string text = "���� �������, � ������� �������������� � �����, ���������� � �������. ��������� ����� ���� ������������, ����������� ������ ���� �� �����������, ����������� �������������� ���� � ���������� ����� �������� � �������������.\r\n";
-        //int next = 50;
         int word = 0;
         string[] wordList;
-        //DateTime time;
         State state = State.Stop;
         private int wordAvg;
         private DateTime timeAvg;
         private decimal readSpeed = 0;
         int fontSize;
         Data data;
-
 
         public void RenderRainbowText(string Text, PictureBox pb)
         {
@@ -74,8 +70,7 @@ namespace ReadForSpeed
 
             if (word >= wordList?.Length) word = 0;
             updLabel();
-            ShowWords();
-            System.Diagnostics.Debugger.Log(0, "info", Location.ToString());
+            //System.Diagnostics.Debugger.Log(0, "info", Location.ToString());
         }
 
         private void loadSettings()
@@ -86,7 +81,7 @@ namespace ReadForSpeed
             fileName = Properties.Settings.Default.fileName;
             Location = Properties.Settings.Default.formLocation; //form location
             Size = Properties.Settings.Default.formSize; //form location
-            System.Diagnostics.Debugger.Log(0, "info", Location.ToString());
+            //System.Diagnostics.Debugger.Log(0, "info", Location.ToString());
             fontSizeCtrl.Value = fontSize;
             readSpeedCtrl.Value = readSpeed;
             data.Load("progress.json");
@@ -113,6 +108,7 @@ namespace ReadForSpeed
                 button1.Text = "run";
                 state = State.Run;
                 resetStat();
+                ShowWords();
             }
             else
             {
@@ -130,7 +126,7 @@ namespace ReadForSpeed
 
         async void ShowWords()
         {
-            while (word < wordList.Length)
+            while (state == State.Run & word < wordList.Length)
             {
                 var w = wordList[word];
                 updLabel();
@@ -144,7 +140,7 @@ namespace ReadForSpeed
                 var minutesLeft = (wordList.Length - word) / wpm;
                 statusTimeLeft.Text = minutesLeft.ToString("F");
 
-                while (state == State.Stop) await Task.Delay(500);
+                //while (state == State.Stop) await Task.Delay(500);
             }
         }
 

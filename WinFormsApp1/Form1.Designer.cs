@@ -52,8 +52,9 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label1.Location = new Point(93, 13);
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label1.BackColor = SystemColors.ControlLight;
+            label1.Location = new Point(93, 12);
             label1.Name = "label1";
             label1.Size = new Size(240, 23);
             label1.TabIndex = 0;
