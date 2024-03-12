@@ -15,6 +15,7 @@ namespace ReadForSpeed
         private decimal readSpeed = 0;
         int fontSize;
         Data data;
+        private bool color;
 
         public void RenderRainbowText(string Text, PictureBox pb)
         {
@@ -57,6 +58,22 @@ namespace ReadForSpeed
                 }
             }
         }
+
+        private void RenderBlackText(string text, PictureBox pb)
+        {
+            SolidBrush brush = new SolidBrush(Color.White);
+            pb.Image?.Dispose();
+            pb.Image = new Bitmap(pb.Width, pb.Height);
+            using (Graphics g = Graphics.FromImage(pb.Image))
+            {
+                g.FillRectangle(brush, 0, 0, pb.Width, pb.Height);
+                brush = new SolidBrush(Color.Black);
+                float x = 0.5f * (pb.Width - g.MeasureString(text, pb.Font).Width);
+                float y = 0.5f * (pb.Height - g.MeasureString(" ", pb.Font).Height);
+                g.DrawString(text, pb.Font, brush, x, y);
+            }
+
+        }
         public Form1()
         {
             data = new Data();
@@ -79,11 +96,14 @@ namespace ReadForSpeed
             readSpeed = Properties.Settings.Default.readSpeed;
             fontSize = Properties.Settings.Default.fontSize;
             fileName = Properties.Settings.Default.fileName;
+            color = Properties.Settings.Default.color;
             Location = Properties.Settings.Default.formLocation; //form location
             Size = Properties.Settings.Default.formSize; //form location
+
             //System.Diagnostics.Debugger.Log(0, "info", Location.ToString());
             fontSizeCtrl.Value = fontSize;
             readSpeedCtrl.Value = readSpeed;
+            colorCheckBox.Checked = color;
             data.Load("progress.json");
             fillMenu();
         }
@@ -171,7 +191,10 @@ namespace ReadForSpeed
             label1.Text = $"{word} / {wordList.Length}";
             progressBar1.Value = word;
             var w = wordList[word];
-            RenderRainbowText(w, pictureBox1);
+            if (color)
+                RenderRainbowText(w, pictureBox1);
+            else
+                RenderBlackText(w, pictureBox1);
             timeLabel.Text = (DateTime.Now - timeAvg).ToString(@"mm\:ss");
         }
 
@@ -183,6 +206,7 @@ namespace ReadForSpeed
             Properties.Settings.Default.fileName = fileName;
             Properties.Settings.Default.formLocation = Location;
             Properties.Settings.Default.formSize = Size;
+            Properties.Settings.Default.color = color;
             Properties.Settings.Default.Save();
             SaveProgress();
         }
@@ -233,6 +257,7 @@ namespace ReadForSpeed
         private void Button2_Click(object sender, EventArgs e)
         {
             FileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "*.txt|*.txt";
             var res = dlg.ShowDialog();
             if (res == DialogResult.OK)
             {
@@ -291,6 +316,11 @@ namespace ReadForSpeed
         private void statusActualSpeed_Click(object sender, EventArgs e)
         {
             resetStat();
+        }
+
+        private void colorCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            color = colorCheckBox.Checked;
         }
     }
 }

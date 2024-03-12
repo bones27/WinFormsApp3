@@ -61,18 +61,6 @@ namespace ReadForSpeed.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\prog\\WinFormsApp1\\WinFormsApp1\\read.txt")]
-        public string fileName {
-            get {
-                return ((string)(this["fileName"]));
-            }
-            set {
-                this["fileName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100, 100")]
         public global::System.Drawing.Point formLocation {
             get {
@@ -92,6 +80,30 @@ namespace ReadForSpeed.Properties {
             }
             set {
                 this["formSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\prog\\WinFormsApp1\\WinFormsApp1\\read.txt")]
+        public string fileName {
+            get {
+                return ((string)(this["fileName"]));
+            }
+            set {
+                this["fileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool color {
+            get {
+                return ((bool)(this["color"]));
+            }
+            set {
+                this["color"] = value;
             }
         }
     }

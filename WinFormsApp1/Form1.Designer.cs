@@ -44,6 +44,7 @@
             statusTimeLeft = new ToolStripStatusLabel();
             statusFileName = new ToolStripStatusLabel();
             timeLabel = new Label();
+            colorCheckBox = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)readSpeedCtrl).BeginInit();
             ((System.ComponentModel.ISupportInitialize)fontSizeCtrl).BeginInit();
@@ -76,6 +77,7 @@
             // pictureBox1
             // 
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
             pictureBox1.Location = new Point(12, 75);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(573, 127);
@@ -188,11 +190,24 @@
             timeLabel.TabIndex = 8;
             timeLabel.Text = "label4";
             // 
+            // colorCheckBox
+            // 
+            colorCheckBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            colorCheckBox.AutoSize = true;
+            colorCheckBox.Location = new Point(527, 21);
+            colorCheckBox.Name = "colorCheckBox";
+            colorCheckBox.Size = new Size(55, 19);
+            colorCheckBox.TabIndex = 9;
+            colorCheckBox.Text = "Color";
+            colorCheckBox.UseVisualStyleBackColor = true;
+            colorCheckBox.CheckedChanged += colorCheckBox_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(597, 382);
+            Controls.Add(colorCheckBox);
             Controls.Add(timeLabel);
             Controls.Add(statusStrip1);
             Controls.Add(openBtn);
@@ -236,5 +251,6 @@
     private ToolStripStatusLabel statusTimeLeft;
         private ContextMenuStrip contextMenuRecent;
         private Label timeLabel;
+        private CheckBox colorCheckBox;
     }
 }
